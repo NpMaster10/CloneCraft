@@ -115,6 +115,7 @@ import com.google.common.collect.Multimap;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.jamezo97.clonecraft.clone.ClassicSkinBuffer;
 
 public class EntityClone extends EntityLiving implements RenderableManager{
 	
@@ -2914,7 +2915,7 @@ public class EntityClone extends EntityLiving implements RenderableManager{
 			// url = "http://skins.minecraft.net/MinecraftSkins/" + username + ".png";
 			url = "https://minotar.net/skin/" + username + ".png";
 
-			object = new ThreadDownloadImageData(null, url, NameRegistry.getDefaultSkinForClone(this), new ImageBufferDownload());
+            object = new ThreadDownloadImageData(null, url, NameRegistry.getDefaultSkinForClone(this), new ClassicSkinBuffer());
 			texturemanager.loadTexture(resource, object);
 		}
 		currentResource = resource;
