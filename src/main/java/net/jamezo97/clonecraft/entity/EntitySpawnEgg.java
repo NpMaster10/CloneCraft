@@ -13,6 +13,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
+import net.jamezo97.clonecraft.CloneCraft;
 
 public class EntitySpawnEgg extends EntityThrowable
 {
@@ -95,7 +96,9 @@ public class EntitySpawnEgg extends EntityThrowable
 				Entity entity = new ItemData(stack).spawn(mop, this);
 				if (entity != null)
 				{
-                    entity.getEntityData().setBoolean("Cloned", true);
+                    if (!CloneCraft.INSTANCE.config.GET_BLOOD_FROM_CLONES) {
+                        entity.getEntityData().setBoolean("Cloned", true);
+                    }
 					entity.worldObj.playSoundAtEntity(entity, "clonecraft:general.pop", 1.0f, 0.9f + (worldObj.rand.nextFloat() / 5));
 					if (entity instanceof EntityLivingBase && stack.hasDisplayName())
 					{

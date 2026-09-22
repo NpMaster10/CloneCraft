@@ -176,9 +176,9 @@ public class ItemSpawnEgg extends Item{
             if (entity != null)
             {
                 par3World.playSoundAtEntity(entity, "clonecraft:general.pop", 1.0f, 1.0f);
-                
-                entity.getEntityData().setBoolean("Cloned", true);
-
+                if (!CloneCraft.INSTANCE.config.GET_BLOOD_FROM_CLONES) {
+                    entity.getEntityData().setBoolean("Cloned", true);
+                }
                 if (entity instanceof EntityLivingBase && par1ItemStack.hasDisplayName())
                 {
                     ((EntityLiving)entity).setCustomNameTag(par1ItemStack.getDisplayName());

@@ -82,6 +82,10 @@ public class ItemNeedle extends Item
 		{
 			return "Human Stem Cells";
 		}
+		else if (type == 4)
+		{
+			return "Unstable Clone Blood";
+		}
 		return s;
 	}
 
@@ -97,6 +101,10 @@ public class ItemNeedle extends Item
 			if (stack.getItemDamage() == 3)
 			{
 				return 0xff9933ee;
+			}
+			else if (stack.getItemDamage() == 4)
+			{
+				return 0xFF660000;
 			}
 			else
 			{
@@ -157,8 +165,39 @@ public class ItemNeedle extends Item
 					return false;
 				}
 			}
-			else
-			{
+			else if (par1ItemStack.getItemDamage() == 4) {
+                boolean cloned = hit.getEntityData().getBoolean("Cloned");
+				if (!cloned) {
+					hit.addPotionEffect(new PotionEffect(Potion.wither.getId(), 200));
+					player.worldObj.playSoundAtEntity(hit, "clonecraft:needle.inject", 1.0F, 1.0F / (itemRand.nextFloat() * 0.4F + 1.2F) + 0.5F);
+
+					if (!hit.worldObj.isRemote)
+					{
+						if (par1ItemStack.stackSize == 1 && !player.capabilities.isCreativeMode)
+						{
+							new ItemData(par1ItemStack).empty().save(par1ItemStack);
+							par1ItemStack.setItemDamage(0);
+						}
+						else if (par1ItemStack.stackSize > 1)
+						{
+							par1ItemStack.stackSize--;
+							ItemStack newStack = par1ItemStack.copy();
+							newStack.stackSize = 1;
+							new ItemData(newStack).empty().save(newStack);
+							newStack.setItemDamage(0);
+
+							CloneCraftHelper.addToInventory(player.inventory, 0, 36, newStack);
+
+							if (newStack.stackSize > 0)
+							{
+								CloneCraftHelper.dropAtEntity(player, newStack.copy());
+							}
+						}
+                    }
+					return false;
+				}
+			} 
+            else {
 				return tryFill(par1ItemStack, hit.worldObj, hit, player.inventory);
 			}
 
@@ -199,17 +238,17 @@ public class ItemNeedle extends Item
 		}
 
 		ItemData data = new ItemData(stack);
-        boolean cloned = entity.getEntityData().getBoolean("Cloned");
+        boolean cloned = entity.getEntityData().getBoolean("Cloned") && !CloneCraft.INSTANCE.config.GET_BLOOD_FROM_CLONES;
 
 		if (!data.isDirty() && stack.getItemDamage() == 0)
 		{
             if (!cloned) {
 			    data.fill(entity);
             } else {
-                //data.setDirty();
+                data.setDirty();
             }
 
-			if (data.getId() != -1)
+			if (data.getId() != -1 || cloned)
 			{
 				world.playSoundAtEntity(entity, "clonecraft:needle.extract", 1.0F, 1.0F / (itemRand.nextFloat() * 0.4F + 1.2F) + 0.5F);
 
@@ -222,6 +261,8 @@ public class ItemNeedle extends Item
 				data.save(stack);
                 if (!cloned) {
 				    stack.setItemDamage(1);
+                } else {
+				    stack.setItemDamage(4);
                 }
 
 				if (stack != stackBase)
@@ -274,7 +315,7 @@ public class ItemNeedle extends Item
 			{
 				return this.DNAIcon;
 			}
-			else if (dam == 3)
+			else if (dam == 3 || dam == 4)
 			{
 				return this.stemCellIcon;
 			}
@@ -310,6 +351,7 @@ public class ItemNeedle extends Item
 		{
 			list.add(new ItemStack(item, 1, 0));
 			list.add(new ItemData().empty().setDirty().save(new ItemStack(item, 1, 3)));
+			list.add(new ItemData().empty().setDirty().save(new ItemStack(item, 1, 4)));
 		}
 	}
 

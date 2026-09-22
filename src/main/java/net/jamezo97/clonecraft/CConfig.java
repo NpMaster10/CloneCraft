@@ -24,6 +24,8 @@ public class CConfig {
 
 	public String ID_ENTITY_CLONE;
 	public String ID_ENTITY_SPAWNEGG;
+
+	public boolean GET_BLOOD_FROM_CLONES;
 	
 	public CConfig(File file){
 		
@@ -35,6 +37,7 @@ public class CConfig {
 		DEBUG_ENABLED = c.get("Options", "Debug Enabled", false, "Faster processes, extra commands. Don't enable unless debugging").getBoolean(false);
 		
 		LIFEINDUCER_EXPLODE = c.get("Options", "Life Inducer Damage Blocks", false, "If set to true, when a life inducer is broken without being discharged, the explosion will also damage blocks.").getBoolean(false);
+		GET_BLOOD_FROM_CLONES = c.get("Options", "Get Blood from Clones", false, "If set to true, you will get normal blood insted of unstable bood from clones").getBoolean(false);
 		
 		SYNC_BLOCK_ITEM_CLIENT = c
 				.get("Options",
