@@ -199,10 +199,15 @@ public class ItemNeedle extends Item
 		}
 
 		ItemData data = new ItemData(stack);
+        boolean cloned = entity.getEntityData().getBoolean("Cloned");
 
 		if (!data.isDirty() && stack.getItemDamage() == 0)
 		{
-			data.fill(entity);
+            if (!cloned) {
+			    data.fill(entity);
+            } else {
+                //data.setDirty();
+            }
 
 			if (data.getId() != -1)
 			{
@@ -214,9 +219,10 @@ public class ItemNeedle extends Item
 					entity.addPotionEffect(new PotionEffect(Potion.confusion.getId(), 400));
 					entity.addPotionEffect(new PotionEffect(Potion.weakness.getId(), 400));
 				}
-
 				data.save(stack);
-				stack.setItemDamage(1);
+                if (!cloned) {
+				    stack.setItemDamage(1);
+                }
 
 				if (stack != stackBase)
 				{

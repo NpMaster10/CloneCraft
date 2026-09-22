@@ -93,9 +93,9 @@ public class EntitySpawnEgg extends EntityThrowable
 					mop.hitVec.yCoord += 0.5;
 				}
 				Entity entity = new ItemData(stack).spawn(mop, this);
-
 				if (entity != null)
 				{
+                    entity.getEntityData().setBoolean("Cloned", true);
 					entity.worldObj.playSoundAtEntity(entity, "clonecraft:general.pop", 1.0f, 0.9f + (worldObj.rand.nextFloat() / 5));
 					if (entity instanceof EntityLivingBase && stack.hasDisplayName())
 					{
