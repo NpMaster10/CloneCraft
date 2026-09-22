@@ -209,7 +209,7 @@ public class EntityColourHandler {
 							            	}
 							            }
 							            
-							            count = (int)(count / ((float)total));
+							            count = total > 0 ? (int)(count / ((float)total)) : 127;
 							            
 							            switch(j){
 							            case 0: ir = count; break;
