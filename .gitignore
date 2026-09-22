@@ -1,31 +1,17 @@
-#################
-## Eclipse
-#################
+/*
 
-*.pydevproject
-.project
-.metadata
-bin/
-tmp/
-*.tmp
-*.bak
-*.swp
-*~.nib
-local.properties
-.classpath
-.settings/
-.loadpath
+# folders
+!/docs
+!/gradle
+!/src
 
-# External tool builders
-.externalToolBuilders/
-
-# Locally stored "Eclipse launch configurations"
-*.launch
-
-# CDT-specific
-.cproject
-
-# PDT-specific
-.buildpath
-
-
+# files
+!/.gitignore
+!/README.md
+!/build.gradle
+!/gradlew
+!/gradlew.bat
+!/settings.gradle
+!/fieldsANDmethods.txt
+!/gradle.properties
+!/makefile
