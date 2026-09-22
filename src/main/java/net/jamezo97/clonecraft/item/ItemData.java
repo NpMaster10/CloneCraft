@@ -14,6 +14,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+import cpw.mods.fml.common.FMLCommonHandler;
 
 public class ItemData {
 	
@@ -249,7 +250,7 @@ public class ItemData {
 
 	public int getPrimaryColour()
 	{
-		if(id == 0)
+		if(id == 0 || FMLCommonHandler.instance().getEffectiveSide().isServer())
 		{
 			return 0xffd72a2a;
 		}
@@ -261,7 +262,7 @@ public class ItemData {
 	
 	public int getSecondaryColour()
 	{
-		if(id == 0)
+		if(id == 0 || FMLCommonHandler.instance().getEffectiveSide().isServer())
 		{
 			return 0xfff74a4a;
 		}
