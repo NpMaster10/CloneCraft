@@ -250,7 +250,7 @@ public class ItemData {
 
 	public int getPrimaryColour()
 	{
-		if(id == 0 || FMLCommonHandler.instance().getEffectiveSide().isServer())
+		if(FMLCommonHandler.instance().getEffectiveSide().isServer())
 		{
 			return 0xffd72a2a;
 		}
@@ -262,7 +262,7 @@ public class ItemData {
 	
 	public int getSecondaryColour()
 	{
-		if(id == 0 || FMLCommonHandler.instance().getEffectiveSide().isServer())
+		if(FMLCommonHandler.instance().getEffectiveSide().isServer())
 		{
 			return 0xfff74a4a;
 		}

@@ -26,8 +26,8 @@ public class EntityColourHandler {
 	//Each short represents how many 
 	static IntHashMap idTried = new IntHashMap();
 
-	public static int getPrimaryColourForEntityId(int id)
-	{
+	public static synchronized int getPrimaryColourForEntityId(int id)
+	{  
 		if(idToColourP.containsItem(id))
 		{
 			return (Integer)idToColourP.lookup(id);
@@ -44,8 +44,8 @@ public class EntityColourHandler {
 		}
 	}
 	
-	public static int getSecondaryColourForEntityId(int id)
-	{
+	public static synchronized int getSecondaryColourForEntityId(int id)
+	{     
 		if(idToColourS.containsItem(id))
 		{
 			return (Integer)idToColourS.lookup(id);

@@ -11,6 +11,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.entity.Entity;
 
 public class CloneCraftHelper
 {
@@ -167,6 +168,14 @@ public class CloneCraftHelper
 					return true;
 				}
 			}
+			String[] blacklist = CloneCraft.INSTANCE.config.blProperty.getStringList();
+			for (int a = 0; a < blacklist.length; a++)
+			{
+				if (blacklist[a].equals(name))
+				{
+					return true;
+				}
+			}
 		}
 		return false;
 	}
@@ -190,6 +199,21 @@ public class CloneCraftHelper
 		}
 		return false;
 	}
+
+    public static boolean isBlacklisted(Entity entity) {
+        String[] blacklist = CloneCraft.INSTANCE.config.blProperty.getStringList();
+
+        for (String entityName : blacklist) {
+            Class<?> entityClass =
+               (Class<?>) EntityList.stringToClassMapping.get(entityName);
+
+            if (entityClass != null &&
+                entityClass.isAssignableFrom(entity.getClass())) {
+                return true;
+            }
+        }
+        return false;
+    }
 
 	static HashMap<String, Integer> nameToId = new HashMap<String, Integer>();
 

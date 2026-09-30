@@ -23,6 +23,7 @@ import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.jamezo97.clonecraft.CloneCraft;
 
 public class ItemNeedle extends Item
 {
@@ -238,8 +239,10 @@ public class ItemNeedle extends Item
 		}
 
 		ItemData data = new ItemData(stack);
+        if (CloneCraftHelper.isBlacklisted(entity)) {
+            return false;
+        }
         boolean cloned = entity.getEntityData().getBoolean("Cloned") && !CloneCraft.INSTANCE.config.GET_BLOOD_FROM_CLONES;
-
 		if (!data.isDirty() && stack.getItemDamage() == 0)
 		{
             if (!cloned) {

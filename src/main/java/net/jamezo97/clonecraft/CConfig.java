@@ -4,6 +4,13 @@ import java.io.File;
 
 import net.minecraftforge.common.config.Configuration;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+import net.minecraftforge.common.config.Property;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityList;
+
 public class CConfig {
 	
 	public boolean OWNERS_ENABLED, DEBUG_ENABLED, LIFEINDUCER_EXPLODE, SYNC_BLOCK_ITEM_CLIENT;
@@ -26,6 +33,7 @@ public class CConfig {
 	public String ID_ENTITY_SPAWNEGG;
 
 	public boolean GET_BLOOD_FROM_CLONES;
+    public static Property blProperty;
 	
 	public CConfig(File file){
 		
@@ -56,6 +64,8 @@ public class CConfig {
 		c.setCategoryComment("Item/Block IDs", "If another mod just so happens to use one of these strings, then feel free to change these. However keep in mind that this will"
 				+ " cause itmes/blocks that are currently in the world with these id's to dissapear if you modify it here. Also, you might not be able to connect to a "
 				+ "server either.. So keep it in mind. Also anything you rename here, may need to be renamed in the en_US.lang file in the assets/clonecraft/lang folder of this mod.");
+
+        blProperty = c.get("Option", "Blacklist", new String[0], "Entities in this list can't be cloned");
 		
 		ID_NEEDLE = c.get("Item/Block IDs", "NeedleID", "ccNeedle").getString();
 		ID_TESTTUBE = c.get("Item/Block IDs", "TestTubeID", "ccTestTube").getString();
